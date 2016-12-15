@@ -14,7 +14,6 @@ public class ScreenUtil {
      * @return px
      */
     public static int getStatusHeight(Context context) {
-
         int statusHeight = -1;
         try {
             Class<?> clazz = Class.forName("com.android.internal.R$dimen");

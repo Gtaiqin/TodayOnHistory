@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/item1"
+            android:checked="true"
+            android:icon="@mipmap/ic_history"
+            android:title="历史上的今天"></item>
+        <item
+            android:id="@+id/item2"
+            android:icon="@mipmap/icon_gril"
+            android:title="美女"></item>
+        <item
+            android:id="@+id/item3"
+            android:icon="@mipmap/ic_unlike"
+            android:title="收藏"></item>
+        <item
+            android:id="@+id/item4"
+            android:icon="@mipmap/ic_about"
+            android:title="帮助"></item>
+    </group>
+</menu>
