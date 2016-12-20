@@ -9,7 +9,7 @@
         <item
             android:id="@+id/item2"
             android:icon="@mipmap/icon_gril"
-            android:title="美女"></item>
+            android:title="妹子"></item>
         <item
             android:id="@+id/item3"
             android:icon="@mipmap/ic_unlike"
