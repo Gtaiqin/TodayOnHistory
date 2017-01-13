@@ -18,7 +18,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".splash.MainActivity"/>
-        <activity android:name=".splash.BaseActivity"/>
         <activity android:name=".splash.DetailsActivity"/>
         <activity android:name=".splash.CalendarActivity"/>
         <activity android:name=".splash.GirlDetailsActivity">

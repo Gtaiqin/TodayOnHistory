@@ -1,7 +1,8 @@
 package com.fnfh.splash.bean;
 
 /**
- * Created by w9072 on 2016/12/20.
+ * Created by 李泰亲 on 2016/12/20.
+ * 日期bean包
  */
 
 public class DateBean {

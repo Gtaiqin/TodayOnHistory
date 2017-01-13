@@ -3,7 +3,8 @@ package com.fnfh.splash.bean;
 import java.util.List;
 
 /**
- * Created by w9072 on 2016/12/17.
+ * Created by 李泰亲 on 2016/12/17.
+ * 历史详情页面的数据bean包
  */
 
 public class History_data {

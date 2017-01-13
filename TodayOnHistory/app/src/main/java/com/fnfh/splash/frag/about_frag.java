@@ -10,7 +10,8 @@ import android.view.ViewGroup;
 import com.fnfh.R;
 
 /**
- * Created by w9072 on 2016/12/15.
+ * Created by 李泰亲 on 2016/12/15.
+ * 关于页面
  */
 
 public class about_frag extends Fragment {

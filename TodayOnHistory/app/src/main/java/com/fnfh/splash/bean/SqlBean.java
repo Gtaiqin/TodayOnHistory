@@ -1,14 +1,24 @@
 package com.fnfh.splash.bean;
 
 /**
- * Created by w9072 on 2016/12/20.
+ * Created by 李泰亲 on 2016/12/20.
+ * 数据库按ID查询返回数据bean
  */
 
-public class SqlBean {
+public class SQLBean {
     private int id;
     private String data_id;
     private String data;
     private String title;
+    private String url;
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
 
     public int getId() {
         return id;

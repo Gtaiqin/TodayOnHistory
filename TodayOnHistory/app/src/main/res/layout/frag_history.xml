@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/cdnt_history_frag"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#ffffff">
+                                                 xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                 android:id="@+id/cdnt_history_frag"
+                                                 android:layout_width="match_parent"
+                                                 android:layout_height="match_parent"
+                                                 android:background="#ffffff">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -25,7 +25,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:padding="10dp"
-                android:src="@mipmap/last_img" />
+                android:src="@mipmap/last_img"/>
 
             <TextView
                 android:id="@+id/date_tv"
@@ -34,7 +34,7 @@
                 android:layout_centerInParent="true"
                 android:text="当日日期"
                 android:textColor="#ffffff"
-                android:textSize="25dp" />
+                android:textSize="25dp"/>
 
             <ImageView
                 android:id="@+id/next_img"
@@ -43,7 +43,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:padding="10dp"
-                android:src="@mipmap/next_img" />
+                android:src="@mipmap/next_img"/>
         </RelativeLayout>
 
     </android.support.design.widget.AppBarLayout>
@@ -56,7 +56,7 @@
         android:layout_margin="@dimen/fab_margin"
         android:src="@mipmap/calendar"
         app:backgroundTint="#ea4d58"
-        app:rippleColor="#ea4d58" />
+        app:rippleColor="#ea4d58"/>
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/refresh_layout"
@@ -69,12 +69,10 @@
             android:layout_height="wrap_content"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_history_frag"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
-
 
         </android.support.v4.widget.NestedScrollView>
 

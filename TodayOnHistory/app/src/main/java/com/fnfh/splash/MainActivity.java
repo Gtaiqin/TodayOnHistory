@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        //获取控件ID
         initView();
 
         mToolBar.setTitle("历史上的今天");
@@ -46,8 +47,9 @@ public class MainActivity extends AppCompatActivity {
 
         //设置左上角的图标响应
         getSupportActionBar().setHomeButtonEnabled(true);
+        //隐藏/显示返回箭头
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
+        //DrawerListener实现和NavigationDrawer 搭配使用
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawer, mToolBar, 0, 0) {
             @Override
             public void onDrawerClosed(View drawerView) {

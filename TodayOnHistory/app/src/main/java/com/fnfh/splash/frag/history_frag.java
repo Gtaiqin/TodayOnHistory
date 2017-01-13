@@ -36,7 +36,8 @@ import butterknife.ButterKnife;
 import okhttp3.Request;
 
 /**
- * Created by w9072 on 2016/12/15.
+ * Created by 李泰亲 on 2016/12/15.
+ * 历史上的今天页面
  */
 
 public class history_frag extends Fragment {
@@ -65,10 +66,21 @@ public class history_frag extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.frag_history, container, false);
         ButterKnife.bind(this, view);
+        //注册EVENTBUS
         EventBus.getDefault().register(this);
         //得到系统时间信息并设置
-        gsDate();
+        gsData();
+        //设置监听事件
+        setListener();
+        //RecyclerView设置布局管理器
+        rvHistoryFrag.setLayoutManager(new LinearLayoutManager(getActivity()));
+        //获取网络数据
+        getHttpData();
+        return view;
+    }
 
+    //设置监听事件
+    private void setListener() {
         //悬浮日历按钮
         fabHistoryFrag.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,18 +89,14 @@ public class history_frag extends Fragment {
                 startActivity(intent);
             }
         });
-        //获取网络数据
-        getHttpData();
+        //设置刷新监听
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 getHttpData();
-
             }
         });
-        //RecyclerView设置布局管理器
-        rvHistoryFrag.setLayoutManager(new LinearLayoutManager(getActivity()));
-        //设置条目点击事件
+        //设置recyclerview条目点击事件
         rvHistoryFrag.addOnItemTouchListener(new RecyclerViewClickListener(getActivity(), rvHistoryFrag,
                 new RecyclerViewClickListener.OnItemClickListener() {
                     @Override
@@ -106,10 +114,10 @@ public class history_frag extends Fragment {
                         //Toast.makeText(getActivity(), "长按" + position, Toast.LENGTH_SHORT).show();
                     }
                 }));
-        return view;
     }
 
-    private void gsDate() {
+    //时间操作
+    private void gsData() {
         //取得系统日期:
         Calendar c = Calendar.getInstance();
         year = c.get(Calendar.YEAR);
@@ -230,6 +238,7 @@ public class history_frag extends Fragment {
         }
     }
 
+    //使用EVENTBUS接受回传的数据并请求对应数据
     @Subscribe
     public void onMessageEvent(DateBean db) {
         year = db.getYear();
@@ -243,6 +252,7 @@ public class history_frag extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        //注销eventbus
         EventBus.getDefault().unregister(this);
     }
 }

@@ -22,7 +22,6 @@ public class CircleView extends View {
         init();
     }
 
-
     public CircleView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();

@@ -9,12 +9,14 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.fnfh.R;
 import com.fnfh.splash.bean.History_context;
-import com.fnfh.splash.util.DbUtils;
+import com.fnfh.splash.util.MyDatabase;
 import com.fnfh.splash.util.OkHttp;
 import com.google.gson.Gson;
 
@@ -35,10 +37,17 @@ public class DetailsActivity extends AppCompatActivity {
     FloatingActionButton detailsFab;
     @BindView(R.id.tv_details)
     TextView tvDetails;
-    private boolean if_collection = false;
+    @BindView(R.id.details_bg_img)
+    ImageView detailsBgImg;
+    private boolean if_collection;
     private String content;
     private List<History_context.ResultBean> result1;
-    private DbUtils historyUtil;
+    //private DbUtils historyUtil;
+    private String url;
+    private static String id;
+    private String title;
+    private String date;
+    private MyDatabase database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,12 +57,22 @@ public class DetailsActivity extends AppCompatActivity {
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
         //得到传递的历史信息ID
         Intent intent = getIntent();
-        final String id = intent.getStringExtra("id");
-        final String title = intent.getStringExtra("title");
-        final String date = intent.getStringExtra("date");
-        historyUtil = new DbUtils(DetailsActivity.this);
+        id = intent.getStringExtra("id");
+        title = intent.getStringExtra("title");
+        date = intent.getStringExtra("date");
+        //创建数据库对象
+        database = new MyDatabase(this);
+        //根据传过来的ID查询数据库，按是否有收藏的该条数据
+        int idread = database.idread(id);
+        if (idread > 0) {
+            if_collection = true;
+            detailsFab.setImageResource(R.mipmap.collection_true);
+        } else {
+            if_collection = false;
+            detailsFab.setImageResource(R.mipmap.collection_false);
+        }
+        //根据ID获取数据设置折叠区的图片
         getHttpData(id);
-
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mToolbar.setNavigationIcon(R.mipmap.back);
@@ -69,19 +88,24 @@ public class DetailsActivity extends AppCompatActivity {
         //通过CollapsingToolbarLayout修改字体颜色
         mCollapsingToolbarLayout.setExpandedTitleColor(Color.BLACK);//设置还没收缩时状态下字体颜色
         mCollapsingToolbarLayout.setCollapsedTitleTextColor(Color.WHITE);//设置收缩后Toolbar上字体的颜色
+        //对收藏按钮进行监听
         detailsFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (if_collection == false) {
+                if (if_collection) {
+                    detailsFab.setImageResource(R.mipmap.collection_false);
+                    boolean delete = database.delete(id);
+                    if (delete == true) {
+                        Toast.makeText(DetailsActivity.this, "取消收藏!", Toast.LENGTH_SHORT).show();
+                    }
+                    if_collection = false;
+                } else {
                     detailsFab.setImageResource(R.mipmap.collection_true);
-                    boolean insert = historyUtil.insert(id, date, title);
+                    boolean insert = database.insert(id, date, title, url);
                     if (insert == true) {
-                        Toast.makeText(DetailsActivity.this, "添加成功!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(DetailsActivity.this, "添加收藏成功!", Toast.LENGTH_SHORT).show();
                     }
                     if_collection = true;
-                } else if (if_collection == true) {
-                    detailsFab.setImageResource(R.mipmap.collection_false);
-                    if_collection = false;
                 }
             }
         });
@@ -100,6 +124,9 @@ public class DetailsActivity extends AppCompatActivity {
                 History_context history_context = gson.fromJson(result, History_context.class);
                 result1 = history_context.getResult();
                 content = result1.get(0).getContent();
+                url = result1.get(0).getPicUrl().get(0).getUrl();
+                Glide.with(DetailsActivity.this).load(url)
+                        .into(detailsBgImg);
                 tvDetails.setText(content);
             }
         });

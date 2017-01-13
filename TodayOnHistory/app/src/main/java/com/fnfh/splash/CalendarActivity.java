@@ -58,7 +58,7 @@ public class CalendarActivity extends AppCompatActivity {
         });
 
     }
-
+    //获取系统当前日期信息
     private void getDate() {
         Calendar c = Calendar.getInstance();
         mYear = c.get(Calendar.YEAR);
